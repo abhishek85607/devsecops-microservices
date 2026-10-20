@@ -13,3 +13,6 @@ backend/.pytest_cache/
 .DS_store
 *.log
 
+# Vim swap files
+.*.sw?
+*.sw?
