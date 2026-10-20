@@ -1,0 +1,15 @@
+# Node /vite
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# python / FastAPI
+backend/__pycache__/
+backend/*.pyc
+backend/.pytest_cache/
+*.pyc
+
+# Docker & os
+.DS_store
+*.log
+
