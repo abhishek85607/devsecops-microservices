@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  DOCKER_USER: abhishek85607
+  DOCKER_USER: abhiraj328
 
 jobs:
   security-and-lint:
