@@ -105,3 +105,28 @@ jobs:
           docker tag $DOCKER_USER/devsecops-frontend:${{ github.sha }} $DOCKER_USER/devsecops-frontend:latest
           docker push $DOCKER_USER/devsecops-frontend:${{ github.sha }}
           docker push $DOCKER_USER/devsecops-frontend:latest
+
+  update-gitops-manifests:
+    name: Update GitOps Manifests & Trigger ArgoCD
+    needs: build-and-scan-images
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Image Tags in K8s Manifests
+        run: |
+          sed -i "s|image: abhiraj328/devsecops-backend:.*|image: abhiraj328/devsecops-backend:${{ github.sha }}|g" k8s/backend-deployment.yaml
+          sed -i "s|image: abhiraj328/devsecops-frontend:.*|image: abhiraj328/devsecops-frontend:${{ github.sha }}|g" k8s/frontend-deployment.yaml
+
+      - name: Commit and Push Updated Manifests
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add k8s/backend-deployment.yaml k8s/frontend-deployment.yaml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "ci(gitops): update image tags to ${{ github.sha }} [skip ci]" && git push origin main)
