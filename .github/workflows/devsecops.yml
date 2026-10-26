@@ -66,7 +66,10 @@ jobs:
           if [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ]; then echo "TOKEN IS EMPTY"; else echo "TOKEN IS SET"; fi      
       - name: Login to Docker Hub
         uses: docker/login-action@v3
-        withvim ~/devsecops-microservices/.github/workflows/devsecops.yml
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build Frontend Image Locally for Scan
         run: |
           docker build -t $DOCKER_USER/devsecops-frontend:${{ github.sha }} ./frontend
