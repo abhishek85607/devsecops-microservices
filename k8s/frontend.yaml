@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: abhiraj328/devsecops-frontend:c35f5923756ad9ac0f8a5dff2d766cf7346ba075
+          image: abhiraj328/devsecops-frontend:5da0aa0ed78afd93ca1a0b6d7529b4f337823962
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
