@@ -172,6 +172,20 @@ kubectl get application devsecops-microservices -n argocd
 kubectl get deployment backend-deployment -n devsecops-prod \
   -o jsonpath='{.spec.template.spec.containers[0].image}'; echo
 
+---
+
+## 📊 Observability & Monitoring (Prometheus & Grafana)
+
+The cluster is continuously monitored via the **kube-prometheus-stack**:
+
+* **Prometheus:** Scrapes node-level metrics (via Node Exporters), Kubernetes API objects (via Kube-State-Metrics), and application pods.
+* **Grafana:** Visualizes cluster resources, memory/CPU saturation, and pod network I/O in the `devsecops-prod` namespace.
+
+```bash
+# Forward Grafana to port 3000
+kubectl port-forward svc/monitoring-stack-grafana -n monitoring --address 0.0.0.0 31586:80
+
+
 👤 Author
 Abhishek Kumar
 
