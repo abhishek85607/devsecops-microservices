@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: abhiraj328/devsecops-backend:889c38f6cac0d5ea1d42c8a3cc7d57ad65090030
+          image: abhiraj328/devsecops-backend:c35f5923756ad9ac0f8a5dff2d766cf7346ba075
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
